@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>require.js</title>
+    <script src="js/require.js"></script>
+
+</head>
+<script>
+
+    /*
+     require(["js/student", "js/class"], function(student, clz) {
+     clz.addToClass(student.createStudent("Jack", "male"));
+     clz.addToClass(student.createStudent("Rose", "female"));
+     document.write(clz.getClassSize());
+     console.log(clz.getClassSize());  // 输出 2
+     });
+
+     });
+
+     */
+
+    require.config({
+        paths:{
+            "jquery":"js/jquery",
+            "shimlog":"js/other/shim_log_study",
+            "depsAppend":"js/other/shim_deps_study"
+        },
+        shim: {
+            "shimlog":[],
+            "depsAppend":{
+                deps:["jquery"]
+            }
+        }
+
+    });
+
+
+    require(["js/school/manager","shimlog","depsAppend","js/jquery"], function(manager) {
+
+        //使用shim引用费ADM模块js文件
+        shimLog("index-by-shimlog");
+
+        //deps 指定要加载的一个依赖数组 类似于require(["",""])
+        depsAppend("index-append-by shimAppend");
+
+        //引用jquery文件
+        $("#head").html("hello");
+
+        manager.addNewStudent("Jack", "male");
+        manager.addNewStudent("Rose", "female");
+        console.log("manager-console-"+manager.getMyClassSize());
+
+    });
+
+</script>
+<body>
+<div id="head">hello world</div>
+</body>
+</html>
